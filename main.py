@@ -170,7 +170,7 @@ def registrar_producto():
 def listar_productos():
   ventana_listar_productos = tk.Tk()
   ventana_listar_productos.title("Lista de productos")
-  ventana_listar_productos.geometry("600x600")
+  
 
   arbol = ttk.Treeview(ventana_listar_productos, columns=("nombre", "cantidad", "costo", "codigo", "descripcion"), show="headings")
   arbol.column("nombre", width=150, minwidth=150)

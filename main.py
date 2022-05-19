@@ -2,6 +2,8 @@ from tkinter import ttk
 import tkinter as tk
 import csv
 
+indice = 0
+
 def modificar_producto():
   ventana_modificar_producto = tk.Tk()
   ventana_modificar_producto.title("Modificar producto")
@@ -36,6 +38,28 @@ def modificar_producto():
   entrada_descripcion = tk.Text(ventana_modificar_producto, width=25, height=5)
   entrada_descripcion.pack()
 
+  def modificar_datos():
+    datos = []
+    with open("Inventario.csv", "r", newline="") as archivo:
+      lector = csv.reader(archivo, delimiter=",")
+      for lista in lector:
+        datos.append(lista)
+      nombre = entrada_nombre.get()
+      cantidad = entrada_cantidad.get()
+      costo = float(entrada_costo.get())
+      codigo = entrada_codigo.get()
+      descripcion = str(entrada_descripcion.get("1.0", "end-1c"))
+      datos[indice][0] = nombre
+      datos[indice][1] = cantidad
+      datos[indice][2] = costo
+      datos[indice][3] = codigo
+      datos[indice][4] = descripcion
+    
+    with open("Inventario.csv", "w", newline="") as archivo:
+      escritor = csv.writer(archivo, delimiter=",")
+      for registro in datos:
+        escritor.writerow(registro)
+
   def buscar_producto():
     try:
       id = identificador.get()
@@ -43,11 +67,13 @@ def modificar_producto():
         lector = csv.reader(archivo, delimiter = ",")
         bandera = False
         registro_temporal = []
+        global indice 
         for registro in lector:
           if registro[3] == id:
             registro_temporal = registro
             bandera = True
-            print(registro_temporal)
+            break
+          indice += 1
         if bandera:
           entrada_nombre.insert(0, registro_temporal[0])
           entrada_cantidad.insert(0, registro_temporal[1])
@@ -63,6 +89,9 @@ def modificar_producto():
 
   boton_buscar = tk.Button(ventana_modificar_producto ,text="Buscar producto", command=buscar_producto)
   boton_buscar.pack()
+
+  boton_modificar_datos = tk.Button(ventana_modificar_producto, text="Modificar datos", command=modificar_datos)
+  boton_modificar_datos.pack()
 
   boton_salir = tk.Button(ventana_modificar_producto ,text="Salir", command=ventana_modificar_producto.destroy)
   boton_salir.pack()

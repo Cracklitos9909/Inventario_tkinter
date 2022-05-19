@@ -4,6 +4,23 @@ import csv
 
 indice = 0
 
+def eliminar_producto():
+  def eliminar_producto():
+    pass
+
+  ventana_eliminar_producto = tk.Tk()
+  ventana_eliminar_producto.title("Eliminar producto")
+  ventana_eliminar_producto.attributes("-fullscreen", True)
+
+  etiqueta_identificador = tk.Label(ventana_eliminar_producto, text="Ingresa el codigo del producto que quieres modificar:")
+  etiqueta_identificador.pack()
+  identificador = tk.Entry(ventana_eliminar_producto)
+  identificador.pack()
+
+  boton_salir = tk.Button(ventana_eliminar_producto, text = "Salir", command=ventana_eliminar_producto.destroy)
+  boton_salir.pack()
+  ventana_eliminar_producto.mainloop()
+
 def modificar_producto():
   ventana_modificar_producto = tk.Tk()
   ventana_modificar_producto.title("Modificar producto")
@@ -209,7 +226,7 @@ def main():
   elementos_menu.add_command(label = "Registrar producto", command = registrar_producto)
   elementos_menu.add_command(label = "Listar productos", command=listar_productos)
   elementos_menu.add_command(label = "Modificar producto", command=modificar_producto)
-  elementos_menu.add_command(label = "Eliminar producto")
+  elementos_menu.add_command(label = "Eliminar producto", command=eliminar_producto)
   elementos_menu.add_separator()
   elementos_menu.add_command(label = "Salir", command = ventana.destroy)
 

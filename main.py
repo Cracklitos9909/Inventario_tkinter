@@ -39,6 +39,7 @@ def modificar_producto():
   entrada_descripcion.pack()
 
   def modificar_datos():
+    global indice
     datos = []
     with open("Inventario.csv", "r", newline="") as archivo:
       lector = csv.reader(archivo, delimiter=",")
@@ -54,6 +55,7 @@ def modificar_producto():
       datos[indice][2] = costo
       datos[indice][3] = codigo
       datos[indice][4] = descripcion
+      indice = 0
     
     with open("Inventario.csv", "w", newline="") as archivo:
       escritor = csv.writer(archivo, delimiter=",")

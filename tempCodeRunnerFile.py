@@ -1,1 +1,0 @@
-boton_salir

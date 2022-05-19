@@ -2,6 +2,16 @@ from tkinter import ttk
 import tkinter as tk
 import csv
 
+def modificar_producto():
+  ventana_modificar_producto = tk.Tk()
+  ventana_modificar_producto.title("Modificar producto")
+
+  boton_salir = tk.Button(ventana_modificar_producto ,text="Salir", command=ventana_modificar_producto.destroy)
+  boton_salir.pack()
+
+  ventana_modificar_producto.attributes("-fullscreen", True)
+  ventana_modificar_producto.mainloop()
+
 def registrar_producto():
   def guardar_datos():
     try:
@@ -14,6 +24,11 @@ def registrar_producto():
         registro = [nombre, cantidad, costo, codigo, descripcion]
         escritor = csv.writer(archivo, delimiter=",")
         escritor.writerow(registro)
+        entrada_nombre.delete(0,"end")
+        entrada_cantidad.delete(0,"end")
+        entrada_costo.delete(0,"end")
+        entrada_codigo.delete(0,"end")
+        entrada_descripcion.delete(1.0,"end")
         archivo.close()
     except:
       etiqueta_error = tk.Label(ventana_registrar, text="Lo sentimos algo salio mal, por favor intente de nuevo :)")
@@ -83,6 +98,11 @@ def listar_productos():
   arbol.heading("descripcion", text="Descripcion")
   arbol.pack()
 
+  with open("Inventario.csv", 'r', newline = "") as archivo:
+    lector = csv.reader(archivo, delimiter = ",")
+    for registro in lector:
+      arbol.insert("",0,values = (registro[0], registro[1], registro[2], registro[3], registro[4]))
+
   boton_salir = tk.Button(ventana_listar_productos ,text="Salir", command=ventana_listar_productos.destroy)
   boton_salir.pack()
 
@@ -99,7 +119,7 @@ def main():
   barra_menu.add_cascade(label = "Operaciones", menu = elementos_menu)
   elementos_menu.add_command(label = "Registrar producto", command = registrar_producto)
   elementos_menu.add_command(label = "Listar productos", command=listar_productos)
-  elementos_menu.add_command(label = "Modificar producto")
+  elementos_menu.add_command(label = "Modificar producto", command=modificar_producto)
   elementos_menu.add_command(label = "Eliminar producto")
   elementos_menu.add_separator()
   elementos_menu.add_command(label = "Salir", command = ventana.destroy)

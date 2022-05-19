@@ -6,6 +6,64 @@ def modificar_producto():
   ventana_modificar_producto = tk.Tk()
   ventana_modificar_producto.title("Modificar producto")
 
+  etiqueta_identificador = tk.Label(ventana_modificar_producto, text="Ingresa el codigo del producto que quieres modificar:")
+  etiqueta_identificador.pack()
+  identificador = tk.Entry(ventana_modificar_producto)
+  identificador.pack()
+
+  etiqueta_nombre = tk.Label(ventana_modificar_producto,text = "Nombre del producto:")
+  etiqueta_nombre.pack()
+  entrada_nombre = tk.Entry(ventana_modificar_producto)
+  entrada_nombre.pack()
+
+  etiqueta_cantidad = tk.Label(ventana_modificar_producto,text = "Cantidad:")
+  etiqueta_cantidad.pack()
+  entrada_cantidad = tk.Entry(ventana_modificar_producto)
+  entrada_cantidad.pack()
+
+  etiqueta_costo = tk.Label(ventana_modificar_producto,text = "Costo del producto:")
+  etiqueta_costo.pack()
+  entrada_costo = tk.Entry(ventana_modificar_producto)
+  entrada_costo.pack()
+
+  etiqueta_codigo = tk.Label(ventana_modificar_producto,text = "Codigo del producto:")
+  etiqueta_codigo.pack()
+  entrada_codigo = tk.Entry(ventana_modificar_producto)
+  entrada_codigo.pack()
+
+  etiqueta_descripcion = tk.Label(ventana_modificar_producto,text = "Descripcion del producto:")
+  etiqueta_descripcion.pack()
+  entrada_descripcion = tk.Text(ventana_modificar_producto, width=25, height=5)
+  entrada_descripcion.pack()
+
+  def buscar_producto():
+    try:
+      id = identificador.get()
+      with open("Inventario.csv", 'r', newline = "") as archivo:
+        lector = csv.reader(archivo, delimiter = ",")
+        bandera = False
+        registro_temporal = []
+        for registro in lector:
+          if registro[3] == id:
+            registro_temporal = registro
+            bandera = True
+            print(registro_temporal)
+        if bandera:
+          entrada_nombre.insert(0, registro_temporal[0])
+          entrada_cantidad.insert(0, registro_temporal[1])
+          entrada_costo.insert(0, registro_temporal[2])
+          entrada_codigo.insert(0, registro_temporal[3])
+          entrada_descripcion.insert(1.0, registro_temporal[4])
+        else:
+          etiqueta_error = tk.Label(ventana_modificar_producto, text="El producto no fue encontrado:)")
+          etiqueta_error.pack()
+    except:
+      etiqueta_error = tk.Label(ventana_modificar_producto, text="Lo sentimos algo salio mal, por favor intente de nuevo :)")
+      etiqueta_error.pack()
+
+  boton_buscar = tk.Button(ventana_modificar_producto ,text="Buscar producto", command=buscar_producto)
+  boton_buscar.pack()
+
   boton_salir = tk.Button(ventana_modificar_producto ,text="Salir", command=ventana_modificar_producto.destroy)
   boton_salir.pack()
 

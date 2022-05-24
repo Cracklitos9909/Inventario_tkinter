@@ -1,8 +1,14 @@
 from tkinter import ttk
 import tkinter as tk
+import matplotlib.pyplot as plt
 import csv
 
 indice = 0
+
+def reporte_inventario():
+  with open("Inventario.csv","r", newline="") as archivo:
+    lector = csv.reader(archivo, delimiter=",")
+    print(lector)
 
 def eliminar_producto():
   ventana_eliminar_producto = tk.Tk()
@@ -293,13 +299,16 @@ def main():
   ventana.geometry("600x600")
   barra_menu = tk.Menu(ventana)
   elementos_menu = tk.Menu(barra_menu, tearoff = 0)
+  menu_reportes = tk.Menu(barra_menu, tearoff = 0)
   barra_menu.add_cascade(label = "Operaciones", menu = elementos_menu)
+  barra_menu.add_cascade(label="Reportes",menu= menu_reportes)
   elementos_menu.add_command(label = "Registrar producto", command = registrar_producto)
   elementos_menu.add_command(label = "Listar productos", command=listar_productos)
   elementos_menu.add_command(label = "Modificar producto", command=modificar_producto)
   elementos_menu.add_command(label = "Eliminar producto", command=eliminar_producto)
   elementos_menu.add_separator()
   elementos_menu.add_command(label = "Salir", command = ventana.destroy)
+  menu_reportes.add_command(label="Reporte de inventario", command=reporte_inventario)
 
   ventana.attributes("-fullscreen", True)
   ventana.config(menu = barra_menu)

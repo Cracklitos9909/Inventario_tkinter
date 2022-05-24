@@ -8,7 +8,16 @@ indice = 0
 def reporte_inventario():
   with open("Inventario.csv","r", newline="") as archivo:
     lector = csv.reader(archivo, delimiter=",")
-    print(lector)
+    contenido = []
+    for val in lector:
+      contenido.append(val)
+  nombre = []
+  cantidad = []
+  for linea in contenido:
+    nombre.append(linea[0])
+    cantidad.append(linea[1])
+  print(nombre)
+  print(cantidad)
 
 def eliminar_producto():
   ventana_eliminar_producto = tk.Tk()

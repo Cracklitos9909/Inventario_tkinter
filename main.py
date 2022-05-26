@@ -1,9 +1,55 @@
 from tkinter import ttk
 import tkinter as tk
 import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.pyplot as plt
 import csv
 
 indice = 0
+
+def reporte_categorias():
+  ventana_reporte_categoria = tk.Tk()
+  ventana_reporte_categoria.title("Reporte de categorias")
+
+  tree = ttk.Treeview(ventana_reporte_categoria)
+  tree.pack()
+  productos = {}
+  with open("Inventario.csv", "r", newline="") as archivo:
+    lector = csv.reader(archivo, delimiter=",")
+    for campo in lector:
+      if campo[4] in productos:
+        productos[campo[4]].append(campo[0])
+      else:
+        productos[campo[4]] = [campo[0]]
+    for categoria, productos_temp in productos.items():
+      categoria_arbol = tree.insert("",tk.END, text= categoria)
+      for p in productos_temp:
+        tree.insert(categoria_arbol, tk.END,text=p)
+
+  boton_salir = tk.Button(ventana_reporte_categoria, text = "Salir", command=ventana_reporte_categoria.destroy)
+  boton_salir.pack()
+  ventana_reporte_categoria.attributes("-fullscreen", True)
+  ventana_reporte_categoria.mainloop()
+
+def reporte_inventario_costo():
+   with open("Inventario.csv","r", newline="") as archivo:
+    lector = csv.reader(archivo, delimiter=",")
+    contenido = []
+    for val in lector:
+      contenido.append(val)
+    nombres = []
+    cantidades = []
+    for linea in contenido:
+      nombres.append(linea[0])
+      cantidades.append(float(linea[2]))
+
+    fig = plt.figure(figsize = (10, 5))
+    plt.bar(nombres, cantidades, color ='blue',
+        width = 0.10)
+    plt.xlabel("Nombre de los productos")
+    plt.ylabel("Costo de los productos")
+    plt.title("Costos")
+    plt.show()
 
 def reporte_inventario():
   with open("Inventario.csv","r", newline="") as archivo:
@@ -11,13 +57,15 @@ def reporte_inventario():
     contenido = []
     for val in lector:
       contenido.append(val)
-  nombre = []
-  cantidad = []
+  nombres = []
+  cantidades = []
   for linea in contenido:
-    nombre.append(linea[0])
-    cantidad.append(linea[1])
-  print(nombre)
-  print(cantidad)
+    nombres.append(linea[0])
+    cantidades.append(float(linea[2]))
+  plt.figure(num="Grafica de reportes de inventario")
+  plt.title("Reporte de inventario")
+  plt.pie(cantidades, labels = nombres)
+  plt.show()
 
 def eliminar_producto():
   ventana_eliminar_producto = tk.Tk()
@@ -318,6 +366,8 @@ def main():
   elementos_menu.add_separator()
   elementos_menu.add_command(label = "Salir", command = ventana.destroy)
   menu_reportes.add_command(label="Reporte de inventario", command=reporte_inventario)
+  menu_reportes.add_command(label = "Reporte de costos", command=reporte_inventario_costo)
+  menu_reportes.add_command(label = "Reporte por categoria", command = reporte_categorias)
 
   ventana.attributes("-fullscreen", True)
   ventana.config(menu = barra_menu)

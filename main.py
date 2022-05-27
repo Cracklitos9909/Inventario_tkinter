@@ -1,8 +1,6 @@
 from tkinter import ttk
 import tkinter as tk
 import matplotlib.pyplot as plt
-import numpy as np
-import matplotlib.pyplot as plt
 import csv
 
 indice = 0

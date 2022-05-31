@@ -2,6 +2,7 @@ from tkinter import ttk
 import tkinter as tk
 import matplotlib.pyplot as plt
 import csv
+from PIL import ImageTk, Image
 
 indice = 0
 
@@ -26,7 +27,7 @@ def reporte_categorias():
 
   boton_salir = tk.Button(ventana_reporte_categoria, text = "Salir", command=ventana_reporte_categoria.destroy)
   boton_salir.pack()
-  ventana_reporte_categoria.attributes("-fullscreen", True)
+  # ventana_reporte_categoria.attributes("-fullscreen", True)
   ventana_reporte_categoria.mainloop()
 
 def reporte_inventario_costo():
@@ -150,7 +151,7 @@ def eliminar_producto():
   boton_salir = tk.Button(ventana_eliminar_producto ,text="Salir", command=ventana_eliminar_producto.destroy)
   boton_salir.pack()
 
-  ventana_eliminar_producto.attributes("-fullscreen", True)
+  # ventana_eliminar_producto.attributes("-fullscreen", True)
   ventana_eliminar_producto.mainloop()
 
 def modificar_producto():
@@ -247,7 +248,7 @@ def modificar_producto():
   boton_salir = tk.Button(ventana_modificar_producto ,text="Salir", command=ventana_modificar_producto.destroy)
   boton_salir.pack()
 
-  ventana_modificar_producto.attributes("-fullscreen", True)
+  # ventana_modificar_producto.attributes("-fullscreen", True)
   ventana_modificar_producto.mainloop()
 
 def registrar_producto():
@@ -315,7 +316,7 @@ def registrar_producto():
   boton_salir = tk.Button(ventana_registrar, text="Salir", command=ventana_registrar.destroy)
   boton_salir.pack()
   
-  ventana_registrar.attributes("-fullscreen", True)
+  # ventana_registrar.attributes("-fullscreen", True)
   ventana_registrar.mainloop()
 
 def listar_productos():
@@ -344,7 +345,7 @@ def listar_productos():
   boton_salir = tk.Button(ventana_listar_productos ,text="Salir", command=ventana_listar_productos.destroy)
   boton_salir.pack()
 
-  ventana_listar_productos.attributes("-fullscreen", True)
+  # ventana_listar_productos.attributes("-fullscreen", True)
   ventana_listar_productos.mainloop()
 
 
@@ -352,6 +353,19 @@ def main():
   ventana = tk.Tk()
   ventana.title("Inventario de productos")
   ventana.geometry("600x600")
+  ventana.iconbitmap("./icono.ico")
+ 
+  frame = tk.Frame(ventana, width=600, height=400)
+  frame.pack()
+  frame.place(anchor='center', relx=0.5, rely=0.5)
+
+  # Create an object of tkinter ImageTk
+  img = ImageTk.PhotoImage(Image.open("./background.png"))
+
+  # Create a Label Widget to display the text or Image
+  label = tk.Label(frame, image = img)
+  label.pack()
+
   barra_menu = tk.Menu(ventana)
   elementos_menu = tk.Menu(barra_menu, tearoff = 0)
   menu_reportes = tk.Menu(barra_menu, tearoff = 0)
@@ -367,7 +381,7 @@ def main():
   menu_reportes.add_command(label = "Reporte de costos", command=reporte_inventario_costo)
   menu_reportes.add_command(label = "Reporte por categoria", command = reporte_categorias)
 
-  ventana.attributes("-fullscreen", True)
+  # ventana.attributes("-fullscreen", True)
   ventana.config(menu = barra_menu)
   ventana.mainloop()
 

@@ -4,11 +4,13 @@ import matplotlib.pyplot as plt
 import csv
 from PIL import ImageTk, Image
 
+
 indice = 0
 
 def reporte_categorias():
   ventana_reporte_categoria = tk.Tk()
   ventana_reporte_categoria.title("Reporte de categorias")
+  ventana_reporte_categoria.iconbitmap("./icono.ico")
 
   tree = ttk.Treeview(ventana_reporte_categoria)
   tree.pack()
@@ -69,6 +71,7 @@ def reporte_inventario():
 def eliminar_producto():
   ventana_eliminar_producto = tk.Tk()
   ventana_eliminar_producto.title("Modificar producto")
+  ventana_eliminar_producto.iconbitmap("./icono.ico")
 
   etiqueta_identificador = tk.Label(ventana_eliminar_producto, text="Ingresa el codigo del producto que quieres eliminar:")
   etiqueta_identificador.pack()
@@ -152,11 +155,13 @@ def eliminar_producto():
   boton_salir.pack()
 
   # ventana_eliminar_producto.attributes("-fullscreen", True)
+  ventana_eliminar_producto.config(background="green")
   ventana_eliminar_producto.mainloop()
 
 def modificar_producto():
   ventana_modificar_producto = tk.Tk()
   ventana_modificar_producto.title("Modificar producto")
+  ventana_modificar_producto.iconbitmap("./icono.ico")
 
   etiqueta_identificador = tk.Label(ventana_modificar_producto, text="Ingresa el codigo del producto que quieres modificar:")
   etiqueta_identificador.pack()
@@ -249,6 +254,7 @@ def modificar_producto():
   boton_salir.pack()
 
   # ventana_modificar_producto.attributes("-fullscreen", True)
+  ventana_modificar_producto.config(background="green")
   ventana_modificar_producto.mainloop()
 
 def registrar_producto():
@@ -283,6 +289,7 @@ def registrar_producto():
   ventana_registrar = tk.Tk()
   ventana_registrar.title("Registrar producto")
   ventana_registrar.geometry("600x600")
+  ventana_registrar.iconbitmap("./icono.ico")
 
   etiqueta_nombre = tk.Label(ventana_registrar,text = "Nombre del producto:")
   etiqueta_nombre.pack()
@@ -317,12 +324,13 @@ def registrar_producto():
   boton_salir.pack()
   
   # ventana_registrar.attributes("-fullscreen", True)
+  ventana_registrar.config(background="green")
   ventana_registrar.mainloop()
 
 def listar_productos():
   ventana_listar_productos = tk.Tk()
   ventana_listar_productos.title("Lista de productos")
-  
+  ventana_listar_productos.iconbitmap("./icono.ico")
 
   arbol = ttk.Treeview(ventana_listar_productos, columns=("nombre", "cantidad", "costo", "codigo", "descripcion"), show="headings")
   arbol.column("nombre", width=150, minwidth=150)
@@ -346,12 +354,13 @@ def listar_productos():
   boton_salir.pack()
 
   # ventana_listar_productos.attributes("-fullscreen", True)
+  ventana_listar_productos.config(background="green")
   ventana_listar_productos.mainloop()
 
 
 def main():
   ventana = tk.Tk()
-  ventana.title("Inventario de productos")
+  ventana.title("Tienda deportiva futbol emotion")
   ventana.geometry("600x600")
   ventana.iconbitmap("./icono.ico")
  
@@ -381,8 +390,9 @@ def main():
   menu_reportes.add_command(label = "Reporte de costos", command=reporte_inventario_costo)
   menu_reportes.add_command(label = "Reporte por categoria", command = reporte_categorias)
 
-  # ventana.attributes("-fullscreen", True)
+  
   ventana.config(menu = barra_menu)
+  ventana.config(background="green")
   ventana.mainloop()
 
 
